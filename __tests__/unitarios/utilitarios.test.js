@@ -57,12 +57,12 @@ describe("Financial", () => {
 describe("Quotation", () => {
 
     it("should return true if there is at least one mandatory coverage present", () => {
-        const ok = quotation.haveMandatoryCoverage([0,1,2]);
+        const ok = quotation.haveMandatoryCoverage(["01","02","03"]);
         expect(ok).toBe(true);
     });
 
     it("should return false if there are no mandatory coverage present", () => {
-        const ok = quotation.haveMandatoryCoverage([2]);
+        const ok = quotation.haveMandatoryCoverage(["02"]);
         expect(ok).toBe(false);
     });
 
@@ -73,4 +73,19 @@ describe("Quotation", () => {
         expect(ok).toBe(false);
     });
 
-    })
+    it("should return true if the person has more than 18 years old", () => {
+        let birthDate = new Date("1979-11-23");
+        expect(quotation.isMoreThan18YearsOld(birthDate)).toBe(true);
+        birthDate = new Date();
+        birthDate.setFullYear(birthDate.getFullYear()-19);
+        expect(quotation.isMoreThan18YearsOld(birthDate)).toBe(true);
+    });
+
+    it("should return false if the person has less than 18 years old", () => {
+        birthDate = new Date();
+        birthDate.setFullYear(birthDate.getFullYear()-18);
+        birthDate.setDate(birthDate.getDate()+10);
+        expect(quotation.isMoreThan18YearsOld(birthDate)).toBe(false);
+    });
+
+})

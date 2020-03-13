@@ -1,0 +1,72 @@
+[
+    {
+      "id": "01",
+      "nome": "Morte Acidental",
+      "premio": 100,
+      "valor": 50000,
+      "principal": "S"
+    },
+    {
+      "id": "02",
+      "nome": "Quebra de Ossos",
+      "premio": 30,
+      "valor": 5000,
+      "principal": "N"
+    },
+    {
+      "id": "03",
+      "nome": "Internacao Hospitalar",
+      "premio": 50,
+      "valor": 10000,
+      "principal": "N"
+    },
+    {
+      "id": "04",
+      "nome": "Assistencia Funeraria",
+      "premio": 10,
+      "valor": 2500,
+      "principal": "N"
+    },
+    {
+      "id": "05",
+      "nome": "Invalidez Permanente",
+      "premio": 130,
+      "valor": 90000,
+      "principal": "S"
+    },
+    {
+      "id": "06",
+      "nome": "Assistencia Odontologia Emergencial",
+      "premio": 10,
+      "valor": 2500,
+      "principal": "N"
+    },
+    {
+      "id": "07",
+      "nome": "Diária Incapacidade Temporária",
+      "premio": 30,
+      "valor": 5000,
+      "principal": "N"
+    },
+    {
+      "id": "08",
+      "nome": "Invalidez Funcional",
+      "premio": 80,
+      "valor": 40000,
+      "principal": "S"
+    },
+    {
+      "id": "09",
+      "nome": "Doenças Graves",
+      "premio": 100,
+      "valor": 50000,
+      "principal": "N"
+    },
+    {
+      "id": 10,
+      "nome": "Diagnostico de Cancer",
+      "premio": 50,
+      "valor": 10000,
+      "principal": "N"
+    }
+  ]

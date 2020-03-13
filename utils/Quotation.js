@@ -1,11 +1,18 @@
+const jsonFile = require('./coverage.json');
+const {AgeFromDate} = require('age-calculator');
+/*
+* Class that handles the data necessary to create a quotation
+*/
 class Quotation {
 
     constructor () {
-        this.coverage = [
-            {id:0, nome:"teste", obrigatorio:true},
-            {id:1, nome:"teste1", obrigatorio:true},
-            {id:2, nome:"teste2", obrigatorio:false}
-        ];
+        this.coverage = jsonFile;
+    }
+
+    //Check if the person has more than 18 years old
+    isMoreThan18YearsOld( birthDate ) {
+        const ageFromDate = new AgeFromDate(birthDate).age;
+        return ( ageFromDate >= 18 ); 
     }
 
     //Calcula o numero máximo de prestações para cada faixa de premio
@@ -17,7 +24,7 @@ class Quotation {
                 const tempCoverageoRequested = this.coverage.find( element => {
                     return (element.id == idRequested);
                 });
-                if ( tempCoverageoRequested && tempCoverageoRequested.obrigatorio ) haveMandatory = true;
+                if ( tempCoverageoRequested && (tempCoverageoRequested.principal == 'S') ) haveMandatory = true;
             });
         }
         return haveMandatory;
