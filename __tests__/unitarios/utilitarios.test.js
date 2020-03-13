@@ -1,5 +1,6 @@
-const financial = require('../../utils/Financial');
-const quotation = require('../../utils/Quotation');
+const financial = require('../../models/Financial');
+const quotation = require('../../models/Quotation');
+const address = require('../../models/Address');
 
 describe("Financial", () => {
 
@@ -82,10 +83,30 @@ describe("Quotation", () => {
     });
 
     it("should return false if the person has less than 18 years old", () => {
-        birthDate = new Date();
+        let birthDate = new Date();
         birthDate.setFullYear(birthDate.getFullYear()-18);
         birthDate.setDate(birthDate.getDate()+10);
         expect(quotation.isMoreThan18YearsOld(birthDate)).toBe(false);
+    });
+
+    it("should check if the CEP is valid", () => {
+        let cep = "03693-020";
+        expect(address.isValidCEP(cep)).toBe(true);
+        cep = "03693-20";
+        expect(address.isValidCEP(cep)).toBe(false);
+        cep = "AA693-020";
+        expect(address.isValidCEP(cep)).toBe(false);
+        cep = "13042-200";
+        expect(address.isValidCEP(cep)).toBe(true);
+    });
+
+    it("should check if the city is present in the service response", async () => {
+        let city = "Campinas";
+        expect(await address.isValidCity(city)).toBe(true);
+        city = "São Paulo";
+        expect(await address.isValidCity(city)).toBe(true);
+        city = "Pindamonhangaba";
+        expect(await address.isValidCity(city)).toBe(false);
     });
 
 })
