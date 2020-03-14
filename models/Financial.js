@@ -34,7 +34,7 @@ class Financial {
       discounts = (age - age1) * disc1;
     }
 
-    return discounts;
+    return discounts / 100;
 
   }
 
@@ -47,6 +47,7 @@ class Financial {
     if (businessDays.includes(dateCalc.getDay())) {
       daysCount--;
     }
+    // Iterate and decrement the amount of days when it is business day
     while (daysCount > 0) {
       dateCalc.setDate(dateCalc.getDate() + 1);
       if (businessDays.includes(dateCalc.getDay())) daysCount--;
@@ -61,4 +62,4 @@ class Financial {
   }
 }
 
-module.exports = new Financial();
+module.exports = Financial;

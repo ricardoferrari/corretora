@@ -12,7 +12,7 @@ describe('API', () => {
     jsonData = {
       request: {
         nome: 'José da Silva',
-        nascimento: '23/11/1980',
+        nascimento: '23/11/1989',
         endereco: {
           logradouro: 'Rua das Flores, 15',
           bairro: 'Jardim Floresta',
@@ -87,6 +87,46 @@ describe('API', () => {
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty('message');
     expect(response.body.message).toBe('Número máximo de coberturas excedido!');
+  });
+
+  it('should return ok when all data are valid', async() => {
+    const response = await request(app)
+      .post('/price')
+      .send(jsonData);
+    expect(response.status).toBe(200);
+    expect(response.body.response).toHaveProperty('premio');
+    expect(response.body.response).toHaveProperty('parcelas');
+    expect(response.body.response).toHaveProperty('valor_parcelas');
+    expect(response.body.response).toHaveProperty('primeiro_vencimento');
+    expect(response.body.response).toHaveProperty('cobertura_total');
+  });
+
+  it('should return prize with discounts when all data are valid', async() => {
+    // Coverage total value = 410
+    jsonData.request.coberturas = ['01', '05', '08', '09'];
+    let response = await request(app)
+      .post('/price')
+      .send(jsonData);
+    expect(response.status).toBe(200);
+    expect(response.body.response.premio).toBe(410);
+    // Coverage total value = 410 plus addition of 40% for 25 years old
+    jsonData.request.nascimento = '23/11/1994';
+    response = await request(app)
+      .post('/price')
+      .send(jsonData);
+    expect(response.status).toBe(200);
+    expect(response.body.response.premio).toBe(574);
+    expect(response.body.response.parcelas).toBe(2);
+    expect(response.body.response.valor_parcelas).toBe(287);
+    // Coverage total value = 410 less discount of 16% for 38 years old
+    jsonData.request.nascimento = '15/03/1981';
+    response = await request(app)
+      .post('/price')
+      .send(jsonData);
+    expect(response.status).toBe(200);
+    expect(response.body.response.premio).toBe(344.4);
+    expect(response.body.response.parcelas).toBe(1);
+    expect(response.body.response.valor_parcelas).toBe(344.4);
   });
 
 });

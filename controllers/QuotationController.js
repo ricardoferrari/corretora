@@ -1,6 +1,8 @@
 'use strict';
+const moment = require('moment');
+const {AgeFromDate} = require('age-calculator');
+
 const quotation = require('../models/Quotation');
-// const financial = require('../models/Financial');
 const address = require('../models/Address');
 
 class QuotationController {
@@ -12,8 +14,8 @@ class QuotationController {
       const month = nascimento.split('/')[1];
       const year = nascimento.split('/')[2];
       const birthDate = new Date(year + '-' + month + '-' + day);
+      const presentDate = new Date('2020-3-28');
 
-      console.log(coberturas);
       // Checks if the person has more than 18 years old
       if (!quotation.isMoreThan18YearsOld(birthDate)) {
         res.status(400).json({
@@ -47,22 +49,29 @@ class QuotationController {
       }
 
       // Max number of coverages excedded
-      if (coberturas.length >= 4) {
+      if (coberturas.length > 4) {
         res.status(400).json({
           message: 'Número máximo de coberturas excedido!',
         });
         return;
       }
 
+      const totalCoverage = quotation.sumIndividualCoverage(coberturas);
+      const ageFromDate = new AgeFromDate(birthDate).age;
+      const totalPrize = quotation.calcPrizeWithDiscounts(coberturas, ageFromDate);
+      const n = quotation.amountOfPayments();
+      const pmt = quotation.calcParcelValue();
+
       res.status(200).json({
         response: {
-          premio: 800,
-          parcelas: 3,
-          valor_parcelas: 266.67,
-          primeiro_vencimento: '05/09/2019',
-          cobertura_total: 180000,
+          premio: totalPrize,
+          parcelas: n,
+          valor_parcelas: pmt,
+          primeiro_vencimento: moment(quotation.next5thBusinessDay(presentDate)).format('DD/MM/YYYY'),
+          cobertura_total: totalCoverage,
         },
       });
+
     } catch (err) {
       res.status(500).json({
         message: 'Falha ao calcular cotação!',
