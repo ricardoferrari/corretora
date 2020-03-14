@@ -18,6 +18,25 @@ class Financial {
 
     }
 
+    //Calculates discounts or additions relative to the person's age  
+    calcDiscountAddition(age) {
+        const age1 = 30; //Age imit 1
+        const add1 = 8;
+        const age2 = 45; //Age limit 2
+        const disc1 = -2;
+        
+        let discounts = 0;
+
+        if (age <= age1) {
+            discounts = (age1-age)*add1;
+        } else if ( (age > age1) && (age <= age2) ) {
+            discounts = (age - age1)*disc1;
+        } 
+
+        return discounts;
+
+    }
+
     //Count business days including the initial date
     countBusinessDays(initialDate, days) {
         const businessDays = [1, 2, 3, 4, 5];

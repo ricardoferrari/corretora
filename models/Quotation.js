@@ -15,7 +15,7 @@ class Quotation {
         return ( ageFromDate >= 18 ); 
     }
 
-    //Calcula o numero máximo de prestações para cada faixa de premio
+    //Calc the maximun amount of installments for a prize
     haveMandatoryCoverage( coverageRequested ) {
         let haveMandatory = false;
         if ( (coverageRequested != null) && (coverageRequested.length > 0) ) {
@@ -28,6 +28,21 @@ class Quotation {
             });
         }
         return haveMandatory;
+    }
+
+    //Calc the maximun amount of installments for a prize
+    sumIndividualCoverage( coverageRequested ) {
+        let sum = 0;
+        if ( (coverageRequested != null) && (coverageRequested.length > 0) ) {
+            coverageRequested.forEach( cr => {
+                const idRequested = cr;
+                const tempCoverageoRequested = this.coverage.find( element => {
+                    return (element.id == idRequested);
+                });
+                if ( tempCoverageoRequested.valor ) sum += tempCoverageoRequested.valor;
+            });
+        }
+        return sum;
     }
 }
 

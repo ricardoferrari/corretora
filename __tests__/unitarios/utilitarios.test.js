@@ -74,6 +74,23 @@ describe("Quotation", () => {
         expect(ok).toBe(false);
     });
 
+    it("should return the sum of individual coverage values", () => {
+        let sum = quotation.sumIndividualCoverage(["01","02","03"]);
+        expect(sum).toBe(65000);
+        sum = quotation.sumIndividualCoverage();
+        expect(sum).toBe(0);
+        sum = quotation.sumIndividualCoverage([]);
+        expect(sum).toBe(0);
+    });
+
+    it("should calculate the discount or addition for an age", () => {
+        expect(financial.calcDiscountAddition(29)).toBe(8);
+        expect(financial.calcDiscountAddition(25)).toBe(40);
+        expect(financial.calcDiscountAddition(32)).toBe(-4);
+        expect(financial.calcDiscountAddition(38)).toBe(-16);
+        expect(financial.calcDiscountAddition(30)).toBe(0);
+    });
+
     it("should return true if the person has more than 18 years old", () => {
         let birthDate = new Date("1979-11-23");
         expect(quotation.isMoreThan18YearsOld(birthDate)).toBe(true);
