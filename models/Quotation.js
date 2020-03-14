@@ -17,7 +17,7 @@ class Quotation {
   }
 
   // Calc the maximun amount of installments for a prize
-  haveMandatoryCoverage(coverageRequested) {
+  hasMandatoryCoverage(coverageRequested) {
     let haveMandatory = false;
     if ((coverageRequested != null) && (coverageRequested.length > 0)) {
       coverageRequested.forEach(cr => {

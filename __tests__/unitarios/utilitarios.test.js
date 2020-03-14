@@ -59,19 +59,19 @@ describe('Financial', () => {
 describe('Quotation', () => {
 
   it('should return true if there is at least one mandatory coverage present', () => {
-    const ok = quotation.haveMandatoryCoverage(['01', '02', '03']);
+    const ok = quotation.hasMandatoryCoverage(['01', '02', '03']);
     expect(ok).toBe(true);
   });
 
   it('should return false if there are no mandatory coverage present', () => {
-    const ok = quotation.haveMandatoryCoverage(['02']);
+    const ok = quotation.hasMandatoryCoverage(['02']);
     expect(ok).toBe(false);
   });
 
   it('should return false if there is no coverage present', () => {
-    let ok = quotation.haveMandatoryCoverage();
+    let ok = quotation.hasMandatoryCoverage();
     expect(ok).toBe(false);
-    ok = quotation.haveMandatoryCoverage([]);
+    ok = quotation.hasMandatoryCoverage([]);
     expect(ok).toBe(false);
   });
 
