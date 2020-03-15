@@ -116,11 +116,12 @@ describe('Quotation', () => {
   });
 
   it('should return true if the person has more than 18 years old', () => {
-    let birthDate = new Date('1979-11-23');
-    expect(quotation.isMoreThan18YearsOld(birthDate)).toBe(true);
+    let birthDate = new Date('2002-3-14');
+    let presentDate = new Date('2020-3-14');
+    expect(quotation.isMoreThan18YearsOld(birthDate, presentDate)).toBe(true);
     birthDate = new Date();
     birthDate.setFullYear(birthDate.getFullYear() - 19);
-    expect(quotation.isMoreThan18YearsOld(birthDate)).toBe(true);
+    expect(quotation.isMoreThan18YearsOld(birthDate, presentDate)).toBe(true);
   });
 
   it('should return false if the person has less than 18 years old', () => {
@@ -128,6 +129,9 @@ describe('Quotation', () => {
     birthDate.setFullYear(birthDate.getFullYear() - 18);
     birthDate.setDate(birthDate.getDate() + 10);
     expect(quotation.isMoreThan18YearsOld(birthDate)).toBe(false);
+    birthDate = new Date('2002-3-14');
+    let presentDate = new Date('2020-3-13');
+    expect(quotation.isMoreThan18YearsOld(birthDate, presentDate)).toBe(false);
   });
 
   it('should check if the CEP is valid', () => {

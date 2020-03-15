@@ -1,6 +1,5 @@
 'use strict';
 const moment = require('moment');
-const {AgeFromDate} = require('age-calculator');
 
 const quotation = require('../models/Quotation');
 const address = require('../models/Address');
@@ -14,7 +13,15 @@ class QuotationController {
       const month = nascimento.split('/')[1];
       const year = nascimento.split('/')[2];
       const birthDate = new Date(year + '-' + month + '-' + day);
-      const presentDate = new Date('2020-3-28');
+      let presentDate = new Date();
+      presentDate.setHours(0);
+      presentDate.setMinutes(0);
+      presentDate.setUTCMilliseconds(0);
+      const ageFromDate = moment(presentDate).diff(moment(birthDate), 'years');
+      const totalCoverage = quotation.sumIndividualCoverage(coberturas);
+      const totalPrize = quotation.calcPrizeWithDiscounts(coberturas, ageFromDate);
+      const n = quotation.amountOfPayments();
+      const pmt = quotation.calcParcelValue();
 
       // Checks if the person has more than 18 years old
       if (!quotation.isMoreThan18YearsOld(birthDate)) {
@@ -55,12 +62,6 @@ class QuotationController {
         });
         return;
       }
-
-      const totalCoverage = quotation.sumIndividualCoverage(coberturas);
-      const ageFromDate = new AgeFromDate(birthDate).age;
-      const totalPrize = quotation.calcPrizeWithDiscounts(coberturas, ageFromDate);
-      const n = quotation.amountOfPayments();
-      const pmt = quotation.calcParcelValue();
 
       res.status(200).json({
         response: {

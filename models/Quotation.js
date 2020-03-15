@@ -1,6 +1,6 @@
 'use strict';
 const jsonFile = require('./coverage.json');
-const {AgeFromDate} = require('age-calculator');
+const moment = require('moment');
 
 const Financial = require('./Financial');
 /*
@@ -17,8 +17,14 @@ class Quotation extends Financial{
   }
 
   // Check if the person has more than 18 years old
-  isMoreThan18YearsOld(birthDate) {
-    const ageFromDate = new AgeFromDate(birthDate).age;
+  isMoreThan18YearsOld(birthDate, presentDate) {
+    if (presentDate === undefined) {
+      presentDate = new Date();
+      presentDate.setHours(0);
+      presentDate.setMinutes(0);
+      presentDate.setSeconds(0);
+    }
+    const ageFromDate = moment(presentDate).diff(moment(birthDate), 'years');
     return (ageFromDate >= 18);
   }
 
@@ -78,6 +84,8 @@ class Quotation extends Financial{
     this.sumIndividualPrize(prizeRequested);
     // Add discounts or additions to the prize
     this.totalPrize = this.totalPrize * (1 + super.calcDiscountAddition(age));
+    // Format the prize to 2 decimals
+    this.totalPrize = Math.round(this.totalPrize * 100) / 100;
     return this.totalPrize;
   }
 

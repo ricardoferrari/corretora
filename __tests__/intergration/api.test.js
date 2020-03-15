@@ -1,5 +1,6 @@
 'use strict';
 const request = require('supertest');
+const moment = require('moment');
 
 const app = require('../../app');
 
@@ -119,7 +120,7 @@ describe('API', () => {
     expect(response.body.response.parcelas).toBe(2);
     expect(response.body.response.valor_parcelas).toBe(287);
     // Coverage total value = 410 less discount of 16% for 38 years old
-    jsonData.request.nascimento = '15/03/1981';
+    jsonData.request.nascimento = '23/11/1981';
     response = await request(app)
       .post('/price')
       .send(jsonData);
@@ -127,6 +128,18 @@ describe('API', () => {
     expect(response.body.response.premio).toBe(344.4);
     expect(response.body.response.parcelas).toBe(1);
     expect(response.body.response.valor_parcelas).toBe(344.4);
+    // Coverage total value = 410 plus addition of 96% for 18 years old
+    let birthDate = new Date();
+    birthDate.setFullYear(birthDate.getFullYear() - 18);
+    // birthDate.setDate(birthDate.getDate() - 1);
+    jsonData.request.nascimento = moment(birthDate).format('DD/MM/YYYY');
+    response = await request(app)
+      .post('/price')
+      .send(jsonData);
+    expect(response.status).toBe(200);
+    expect(response.body.response.premio).toBe(803.6);
+    expect(response.body.response.parcelas).toBe(2);
+    expect(response.body.response.valor_parcelas).toBe(401.8);
   });
 
 });
