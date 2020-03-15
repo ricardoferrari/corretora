@@ -2,7 +2,7 @@
 const request = require('supertest');
 const moment = require('moment');
 
-const app = require('../../app');
+const app = require('../../../app');
 
 // Request data
 let jsonData = {};

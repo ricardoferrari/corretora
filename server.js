@@ -1,10 +1,11 @@
 #!/usr/bin/env node
+'use strict';
 
 /**
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('./app');
 var debug = require('debug')('corretora:server');
 var http = require('http');
 
