@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Subject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class QuotationService {
   private statusListener = new Subject<{ status: boolean; cotacao: any }>();
 
@@ -15,9 +15,9 @@ export class QuotationService {
 
 
   price(
-        name: string, 
+        name: string,
         nascimento: string,
-        logradouro: string, 
+        logradouro: string,
         bairro: string,
         cep: string,
         cidade: string,
@@ -27,19 +27,19 @@ export class QuotationService {
     const quotationData = {
         request: {
           nome: name,
-          nascimento: nascimento,
+          nascimento,
           endereco: {
-            logradouro: logradouro,
-            bairro: bairro,
-            cep: cep,
-            cidade: cidade,
+            logradouro,
+            bairro,
+            cep,
+            cidade,
           },
-          coberturas: coberturas,
+          coberturas,
         },
       };
     this.http
       .post<{ token: string; expiresIn: number; userId: string }>(
-        "http://localhost:3000/price",
+        'http://localhost:3000/price',
         quotationData
       )
       .subscribe(response => {

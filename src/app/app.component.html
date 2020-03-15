@@ -45,9 +45,9 @@
     <h2>Cotação</h2>
     <p><b>Prêmio:</b>&nbsp;R$&nbsp;{{ premio }}</p>
     <p><b>Parcelas:</b>&nbsp;{{ parcelas }}</p>
-    <p><b>Valor das parcelas:</b>&nbsp;R$&nbsp;{{ valor_parcelas }}</p>
-    <p><b>Primeiro vencimento:</b>&nbsp;{{ primeiro_vencimento }}</p>
-    <p><b>Cobertura Total:</b>&nbsp;R$&nbsp;{{ cobertura_total }}</p>
+    <p><b>Valor das parcelas:</b>&nbsp;R$&nbsp;{{ valorParcelas }}</p>
+    <p><b>Primeiro vencimento:</b>&nbsp;{{ primeiroVencimento }}</p>
+    <p><b>Cobertura Total:</b>&nbsp;R$&nbsp;{{ coberturaTotal }}</p>
     <button mat-raised-button color="accent" (click)="voltar()" *ngIf="!isLoading">Nova Cotação</button>
   </div>
 </mat-card>
