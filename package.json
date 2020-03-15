@@ -11,16 +11,15 @@
   },
   "dependencies": {
     "@angular/animations": "~9.0.2",
+    "@angular/cdk": "^9.1.2",
     "@angular/common": "~9.0.2",
     "@angular/compiler": "~9.0.2",
     "@angular/core": "~9.0.2",
     "@angular/forms": "~9.0.2",
+    "@angular/material": "^9.1.2",
     "@angular/platform-browser": "~9.0.2",
     "@angular/platform-browser-dynamic": "~9.0.2",
     "@angular/router": "~9.0.2",
-    "rxjs": "~6.5.4",
-    "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
     "age-calculator": "^1.0.0",
     "axios": "^0.19.2",
     "cookie-parser": "~1.4.4",
@@ -29,7 +28,10 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "moment": "^2.24.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "rxjs": "~6.5.4",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
