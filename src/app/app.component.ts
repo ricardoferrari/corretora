@@ -47,9 +47,9 @@ export class AppComponent implements OnInit, OnDestroy {
   onPost(form: NgForm, event) {
     event.preventDefault();
     const coberturas = [];
-    // if (form.invalid) {
-    //   return;
-    // }
+    if (form.invalid) {
+      return;
+    }
     for (let i = 1; i <= 10; i++) {
       const formattedNumber = ('0' + i).slice(-2);
       if (form.value[formattedNumber] === true) { coberturas.push(formattedNumber); }

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
+import { environment } from '../environments/environment';
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({ providedIn: 'root' })
 export class QuotationService {
@@ -39,7 +41,7 @@ export class QuotationService {
       };
     this.http
       .post<{ token: string; expiresIn: number; userId: string }>(
-        'http://localhost:3000/price',
+        BACKEND_URL+'price',
         quotationData
       )
       .subscribe(response => {
