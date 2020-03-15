@@ -86,7 +86,9 @@ describe('Quotation', () => {
   });
 
   it('should return false if there are no mandatory coverage present', () => {
-    const ok = quotation.hasMandatoryCoverage(['02']);
+    let ok = quotation.hasMandatoryCoverage(['02']);
+    expect(ok).toBe(false);
+    ok = quotation.hasMandatoryCoverage(['10']);
     expect(ok).toBe(false);
   });
 
@@ -100,6 +102,8 @@ describe('Quotation', () => {
   it('should return the sum of individual coverage values', () => {
     let sum = quotation.sumIndividualCoverage(['01', '02', '03']);
     expect(sum).toBe(65000);
+    sum = quotation.sumIndividualCoverage(['01', '10']);
+    expect(sum).toBe(60000);
     sum = quotation.sumIndividualCoverage();
     expect(sum).toBe(0);
     sum = quotation.sumIndividualCoverage([]);

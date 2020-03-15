@@ -49,10 +49,10 @@ class Quotation extends Financial{
     if ((coverageRequested != null) && (coverageRequested.length > 0)) {
       coverageRequested.forEach(cr => {
         const idRequested = cr;
-        const tempCoverageoRequested = this.coverage.find(element => {
+        const tempCoverageRequested = this.coverage.find(element => {
           return (element.id === idRequested);
         });
-        if (tempCoverageoRequested.valor) sum += tempCoverageoRequested.valor;
+        if (tempCoverageRequested.valor) sum += tempCoverageRequested.valor;
       });
     }
     this.totalCoverage = sum;
