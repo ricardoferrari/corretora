@@ -1,6 +1,6 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onPost(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
+  <form (submit)="onPost(signupForm)" #signupForm="ngForm" *ngIf="!isLoading && !resposta">
     <mat-form-field>
       <input matInput name="name" ngModel type="text" placeholder="Nome" #nameInput="ngModel" required>
       <mat-error *ngIf="nameInput.invalid">Nome inválido.</mat-error>
@@ -40,4 +40,14 @@
     <br/>
     <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Enviar</button>
   </form>
+
+  <div *ngIf="!isLoading && resposta">
+    <h2>Cotação</h2>
+    <p><b>Prêmio:</b>&nbsp;R$&nbsp;{{ premio }}</p>
+    <p><b>Parcelas:</b>&nbsp;{{ parcelas }}</p>
+    <p><b>Valor das parcelas:</b>&nbsp;R$&nbsp;{{ valor_parcelas }}</p>
+    <p><b>Primeiro vencimento:</b>&nbsp;{{ primeiro_vencimento }}</p>
+    <p><b>Cobertura Total:</b>&nbsp;R$&nbsp;{{ cobertura_total }}</p>
+    <button mat-raised-button color="accent" (click)="voltar()" *ngIf="!isLoading">Nova Cotação</button>
+  </div>
 </mat-card>

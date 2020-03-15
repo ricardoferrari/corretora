@@ -5,7 +5,7 @@ import { Subject } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class QuotationService {
-  private statusListener = new Subject<boolean>();
+  private statusListener = new Subject<{ status: boolean; cotacao: any }>();
 
   constructor(private http: HttpClient) {}
 
@@ -14,17 +14,50 @@ export class QuotationService {
   }
 
 
-  price(email: string, password: string) {
-    const quotationData = { email: email, password: password };
+  price(
+        name: string, 
+        nascimento: string,
+        logradouro: string, 
+        bairro: string,
+        cep: string,
+        cidade: string,
+        coberturas: string[]
+      ) {
+    console.log(name, nascimento, coberturas);
+    const quotationData = {
+        request: {
+          nome: 'José da Silva',
+          nascimento: '23/11/1989',
+          endereco: {
+            logradouro: 'Rua das Flores, 15',
+            bairro: 'Jardim Floresta',
+            cep: '14500-000',
+            cidade: 'São Paulo',
+          },
+          coberturas: [
+            '01',
+            '03',
+            '04',
+            '05',
+            '06'
+          ],
+        },
+      };
     this.http
       .post<{ token: string; expiresIn: number; userId: string }>(
         "http://localhost:3000/price",
         quotationData
       )
       .subscribe(response => {
-        this.statusListener.next(true);
+        this.statusListener.next({
+            status: true,
+            cotacao: response
+        });
       }, error => {
-        this.statusListener.next(false);
+        this.statusListener.next({
+            status: false,
+            cotacao: null
+        });
       });
   }
 

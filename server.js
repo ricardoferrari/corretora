@@ -5,7 +5,7 @@
  * Module dependencies.
  */
 
-var app = require('./app');
+var app = require('./backend/app');
 var debug = require('debug')('corretora:server');
 var http = require('http');
 

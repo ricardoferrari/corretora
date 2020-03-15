@@ -1,4 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -9,7 +10,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+import { ErrorInterceptor } from "./error.interceptor";
 
 @NgModule({
   declarations: [
@@ -23,11 +27,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
