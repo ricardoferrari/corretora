@@ -44,7 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.statusSub.unsubscribe();
   }
 
-  onPost(form: NgForm) {
+  onPost(form: NgForm, event) {
+    event.preventDefault();
     var coberturas = [];
     // if (form.invalid) {
     //   return;
@@ -55,6 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     this.isLoading = true;
     this.quotationService.price(form.value.name, form.value.nascimento, form.value.logradouro, form.value.bairro, form.value.cep, form.value.cidade, coberturas);
+    return;
   }
 
   voltar() {

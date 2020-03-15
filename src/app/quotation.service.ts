@@ -26,21 +26,15 @@ export class QuotationService {
     console.log(name, nascimento, coberturas);
     const quotationData = {
         request: {
-          nome: 'José da Silva',
-          nascimento: '23/11/1989',
+          nome: name,
+          nascimento: nascimento,
           endereco: {
-            logradouro: 'Rua das Flores, 15',
-            bairro: 'Jardim Floresta',
-            cep: '14500-000',
-            cidade: 'São Paulo',
+            logradouro: logradouro,
+            bairro: bairro,
+            cep: cep,
+            cidade: cidade,
           },
-          coberturas: [
-            '01',
-            '03',
-            '04',
-            '05',
-            '06'
-          ],
+          coberturas: coberturas,
         },
       };
     this.http

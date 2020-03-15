@@ -1,12 +1,12 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onPost(signupForm)" #signupForm="ngForm" *ngIf="!isLoading && !resposta">
+  <form (submit)="onPost(signupForm, $event)" #signupForm="ngForm" *ngIf="!isLoading && !resposta">
     <mat-form-field>
       <input matInput name="name" ngModel type="text" placeholder="Nome" #nameInput="ngModel" required>
       <mat-error *ngIf="nameInput.invalid">Nome inválido.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="nascimento" pattern="([0-3][0-9]-[0,1][0-9]-[0-9]{4})|([0-3][0-9]\/[0,1][0-9]\/[0-9]{4})" ngModel type="text" placeholder="Nascimento" #nascimentoInput="ngModel" required>
+      <input matInput name="nascimento" pattern="([0-3][0-9]\/[0,1][0-9]\/[0-9]{4})" ngModel type="text" placeholder="Nascimento" #nascimentoInput="ngModel" required>
       <mat-error *ngIf="nascimentoInput.invalid">Data de nascimento inválida.</mat-error>
     </mat-form-field>
     <mat-form-field>
