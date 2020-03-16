@@ -1,19 +1,56 @@
-mat-card {
-    width: 80%;
-    margin: 1rem auto;
+@media screen and (max-width: 600px) {
+    mat-card {
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        max-width: 600px;
+        min-width: 320px;
+        border-radius: 8px;
+        background-color: snow;
+    }
 }
+
+@media screen and (min-width: 600px) {
+    mat-card {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        width: 100%;
+        padding: 2rem;
+        max-width: 600px;
+        min-width: 320px;
+        border-radius: 8px;
+        -webkit-transform: translate(-50%, 0%);
+        transform: translate(-50%, 0%);
+        background-color: snow;
+    }
+}
+
+mat-card-content {
+    font-size: large;
+}
+
+mat-checkbox {
+    margin-bottom: 10px;
+}
+
 mat-form-field {
-    width: 100%;
+    width: 96%;
+    background-color: white;
+    margin: 0px 0px 10px 0px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 8px;
 }
   
 mat-spinner {
     margin: auto;
 }
 
-.coberturas {
-    display: block;
-    align-content: center;
-    align-items: center;
-    min-height: 60px;
+mat-card-title {
+    font-size: xx-large;
+}
+
+.button-large {
     width: 100%;
 }

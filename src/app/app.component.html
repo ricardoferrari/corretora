@@ -1,53 +1,59 @@
 <mat-card>
+  <mat-card-title>Cotação</mat-card-title>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (ngSubmit)="onPost(signupForm, $event)" #signupForm="ngForm" *ngIf="!resposta">
-    <mat-form-field>
-      <input matInput name="name" ngModel type="text" placeholder="Nome" #nameInput="ngModel" required>
-      <mat-error *ngIf="nameInput.invalid">Nome inválido.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput name="nascimento" pattern="([0-3][0-9]\/[0,1][0-9]\/[0-9]{4})" ngModel type="text" placeholder="Nascimento" #nascimentoInput="ngModel" required>
-      <mat-error *ngIf="nascimentoInput.invalid">Data de nascimento inválida.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput name="logradouro" ngModel type="text" placeholder="Logradouro" #logradouroInput="ngModel" required>
-      <mat-error *ngIf="logradouroInput.invalid">Logradouro inválida.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput name="bairro" ngModel type="text" placeholder="Bairro" #bairroInput="ngModel" required>
-      <mat-error *ngIf="bairroInput.invalid">Bairro inválida.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput name="cep" ngModel pattern="^([0-9]{5}-[0-9]{3})$" type="text" placeholder="CEP" #cepInput="ngModel" required>
-      <mat-error *ngIf="cepInput.invalid">CEP inválida.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput name="cidade" ngModel type="text" placeholder="Cidade" #cidadeInput="ngModel" required>
-      <mat-error *ngIf="cidadeInput.invalid">Cidade inválida.</mat-error>
-    </mat-form-field>
-    <section class="coberturas">
-      <mat-checkbox name="01" ngModel>Morte Acidental</mat-checkbox><br/>
-      <mat-checkbox name="02" ngModel>Quebra de Ossos</mat-checkbox><br/>
-      <mat-checkbox name="03" ngModel>Internação Hospitalar</mat-checkbox><br/>
-      <mat-checkbox name="04" ngModel>Assistência Funeraria</mat-checkbox><br/>
-      <mat-checkbox name="05" ngModel>Invalidez Permanente</mat-checkbox><br/>
-      <mat-checkbox name="06" ngModel>Assistência Odontologica Emergencial</mat-checkbox><br/>
-      <mat-checkbox name="07" ngModel>Diária Incapacidade Temporária</mat-checkbox><br/>
-      <mat-checkbox name="08" ngModel>Invalidez Funcional</mat-checkbox><br/>
-      <mat-checkbox name="09" ngModel>Doenças Graves</mat-checkbox><br/>
-      <mat-checkbox name="10" ngModel>Diagnóstico de Câncer</mat-checkbox><br/>
-    </section>
-    <br/>
-    <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Enviar</button>
-  </form>
+  <mat-card-content *ngIf="!resposta">
+    <form (ngSubmit)="onPost(signupForm, $event)" #signupForm="ngForm">
+      <mat-form-field>
+        <input matInput name="name" ngModel type="text" placeholder="Nome" #nameInput="ngModel" required>
+        <mat-error *ngIf="nameInput.invalid">Nome inválido.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput name="nascimento" pattern="([0-3][0-9]\/[0,1][0-9]\/[0-9]{4})" ngModel type="text" placeholder="Nascimento" #nascimentoInput="ngModel" required>
+        <mat-error *ngIf="nascimentoInput.invalid">Data de nascimento inválida.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput name="logradouro" ngModel type="text" placeholder="Logradouro" #logradouroInput="ngModel" required>
+        <mat-error *ngIf="logradouroInput.invalid">Logradouro inválida.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput name="bairro" ngModel type="text" placeholder="Bairro" #bairroInput="ngModel" required>
+        <mat-error *ngIf="bairroInput.invalid">Bairro inválida.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput name="cep" ngModel pattern="^([0-9]{5}-[0-9]{3})$" type="text" placeholder="CEP" #cepInput="ngModel" required>
+        <mat-error *ngIf="cepInput.invalid">CEP inválida.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput name="cidade" ngModel type="text" placeholder="Cidade" #cidadeInput="ngModel" required>
+        <mat-error *ngIf="cidadeInput.invalid">Cidade inválida.</mat-error>
+      </mat-form-field>
+      
+        <mat-checkbox name="01" ngModel>Morte Acidental</mat-checkbox><br/>
+        <mat-checkbox name="02" ngModel>Quebra de Ossos</mat-checkbox><br/>
+        <mat-checkbox name="03" ngModel>Internação Hospitalar</mat-checkbox><br/>
+        <mat-checkbox name="04" ngModel>Assistência Funeraria</mat-checkbox><br/>
+        <mat-checkbox name="05" ngModel>Invalidez Permanente</mat-checkbox><br/>
+        <mat-checkbox name="06" ngModel>Assistência Odontologica Emergencial</mat-checkbox><br/>
+        <mat-checkbox name="07" ngModel>Diária Incapacidade Temporária</mat-checkbox><br/>
+        <mat-checkbox name="08" ngModel>Invalidez Funcional</mat-checkbox><br/>
+        <mat-checkbox name="09" ngModel>Doenças Graves</mat-checkbox><br/>
+        <mat-checkbox name="10" ngModel>Diagnóstico de Câncer</mat-checkbox><br/>
+      
+      <br/>
+      <mat-card-actions>
+        <button class="button-large" mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Enviar</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
 
-  <div *ngIf="!isLoading && resposta">
-    <h2>Cotação</h2>
+  <mat-card-content *ngIf="!isLoading && resposta">
     <p><b>Prêmio:</b>&nbsp;R$&nbsp;{{ premio }}</p>
     <p><b>Parcelas:</b>&nbsp;{{ parcelas }}</p>
     <p><b>Valor das parcelas:</b>&nbsp;R$&nbsp;{{ valorParcelas }}</p>
     <p><b>Primeiro vencimento:</b>&nbsp;{{ primeiroVencimento }}</p>
     <p><b>Cobertura Total:</b>&nbsp;R$&nbsp;{{ coberturaTotal }}</p>
-    <button mat-raised-button color="accent" (click)="voltar()" *ngIf="!isLoading">Nova Cotação</button>
-  </div>
+    <mat-card-actions>
+      <button class="button-large" mat-raised-button color="accent" (click)="voltar()" *ngIf="!isLoading">Nova Cotação</button>
+    </mat-card-actions>
+  </mat-card-content>
 </mat-card>
