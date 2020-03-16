@@ -1,5 +1,6 @@
 'use strict';
 const BusinessRules = require('../business/BusinessRules');
+const status = require('../commons/status-code');
 
 class QuotationController {
 
@@ -12,8 +13,8 @@ class QuotationController {
       // Return an error response if fails
       const check = await business.check();
 
-      if (check.status === 200) {
-        res.status(200).json({
+      if (check.status === status.OK) {
+        res.status(status.OK).json({
           response: {
             premio: business.totalPrize,
             parcelas: business.n,
@@ -29,7 +30,7 @@ class QuotationController {
       }
 
     } catch (err) {
-      res.status(500).json({
+      res.status(status.INTERNAL_SERVER_ERROR).json({
         message: 'Falha ao calcular cotação!',
         error: err.message,
       });
