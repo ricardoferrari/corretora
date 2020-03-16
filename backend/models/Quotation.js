@@ -1,5 +1,5 @@
 'use strict';
-const jsonFile = require('./coverage.json');
+const jsonFile = require('../commons/coverage.json');
 const moment = require('moment');
 
 const Financial = require('./Financial');

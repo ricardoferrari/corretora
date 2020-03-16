@@ -1,77 +1,32 @@
 'use strict';
-const moment = require('moment');
-
-const quotation = require('../models/Quotation');
-const address = require('../models/Address');
+const BusinessRules = require('../business/BusinessRules');
 
 class QuotationController {
 
   async price(req, res) {
     try {
       const { nascimento, endereco, coberturas } = req.body.request;
-      const day = nascimento.split('/')[0];
-      const month = nascimento.split('/')[1];
-      const year = nascimento.split('/')[2];
-      const birthDate = new Date(year + '-' + month + '-' + day);
-      let presentDate = new Date();
-      presentDate.setHours(0);
-      presentDate.setMinutes(0);
-      presentDate.setUTCMilliseconds(0);
-      const ageFromDate = moment(presentDate).diff(moment(birthDate), 'years');
-      const totalCoverage = quotation.sumIndividualCoverage(coberturas);
-      const totalPrize = quotation.calcPrizeWithDiscounts(coberturas, ageFromDate);
-      const n = quotation.amountOfPayments();
-      const pmt = quotation.calcParcelValue();
 
-      // Checks if the person has more than 18 years old
-      if (!quotation.isMoreThan18YearsOld(birthDate)) {
-        res.status(400).json({
-          message: 'É necessário possuir mais de 18 anos!',
+      // Checks if the request passes through all business constraints
+      let business = new BusinessRules(nascimento, endereco, coberturas);
+      // Return an error response if fails
+      const check = await business.check();
+
+      if (check.status === 200) {
+        res.status(200).json({
+          response: {
+            premio: business.totalPrize,
+            parcelas: business.n,
+            valor_parcelas: business.pmt,
+            primeiro_vencimento: business.vencimento,
+            cobertura_total: business.totalCoverage,
+          },
         });
-        return;
-      }
-
-      // Checks if the city is valid
-      if (!(await address.isValidCity(endereco.cidade))) {
-        res.status(400).json({
-          message: 'Cidade não cadastrada!',
+      } else {
+        res.status(check.status).json({
+          message: check.message,
         });
-        return;
       }
-
-      // Checks if the CEP is valid
-      if (!(await address.isValidCEP(endereco.cep))) {
-        res.status(400).json({
-          message: 'CEP inválido!',
-        });
-        return;
-      }
-
-      // Checks if there is one mandatory coverage present
-      if (!quotation.hasMandatoryCoverage(coberturas)) {
-        res.status(400).json({
-          message: 'Cobertura obrigatória inexistente!',
-        });
-        return;
-      }
-
-      // Max number of coverages excedded
-      if (coberturas.length > 4) {
-        res.status(400).json({
-          message: 'Número máximo de coberturas excedido!',
-        });
-        return;
-      }
-
-      res.status(200).json({
-        response: {
-          premio: totalPrize,
-          parcelas: n,
-          valor_parcelas: pmt,
-          primeiro_vencimento: moment(quotation.next5thBusinessDay(presentDate)).format('DD/MM/YYYY'),
-          cobertura_total: totalCoverage,
-        },
-      });
 
     } catch (err) {
       res.status(500).json({

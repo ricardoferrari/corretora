@@ -6,13 +6,6 @@ const axios = require('axios');
 */
 class Address {
 
-  constructor(logradouro, bairro, cep, cidade) {
-    this.logradouro = logradouro;
-    this.bairro = bairro;
-    this.cep = cep;
-    this.cidade = cidade;
-  }
-
   // Check if the cep is valid
   isValidCEP(cep) {
     // Regular expression for the format #####-###
