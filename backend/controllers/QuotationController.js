@@ -1,6 +1,7 @@
 'use strict';
 const BusinessRules = require('../business/BusinessRules');
 const status = require('../commons/status-code');
+const localize = require('../localize/localize');
 
 class QuotationController {
 
@@ -31,7 +32,7 @@ class QuotationController {
 
     } catch (err) {
       res.status(status.INTERNAL_SERVER_ERROR).json({
-        message: 'Falha ao calcular cotação!',
+        message: localize.getString('fail.unknown', 'pt'),
         error: err.message,
       });
     }

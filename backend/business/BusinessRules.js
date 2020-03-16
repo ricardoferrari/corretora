@@ -6,6 +6,8 @@ const address = require('../models/Address');
 const status = require('../commons/status-code');
 const dateFormats = require('../commons/date-formats');
 
+const localize = require('../localize/localize');
+
 class BusinessRules {
 
   constructor(nascimento, endereco, coberturas) {
@@ -40,27 +42,27 @@ class BusinessRules {
 
     // Checks if the person has more than 18 years old
     if (!quotation.isMoreThan18YearsOld(birthDate)) {
-      return {status: status.BAD_REQUEST, message: 'É necessário possuir mais de 18 anos!'};
+      return {status: status.BAD_REQUEST, message: localize.getString('fail.tooYoung', 'pt')};
     }
 
     // Checks if the city is valid
     if (!(await address.isValidCity(this.endereco.cidade))) {
-      return {status: status.BAD_REQUEST, message: 'Cidade não cadastrada!'};
+      return {status: status.BAD_REQUEST, message: localize.getString('fail.unregisteredCity', 'pt')};
     }
 
     // Checks if the CEP is valid
     if (!(await address.isValidCEP(this.endereco.cep))) {
-      return {status: status.BAD_REQUEST, message: 'CEP inválido!'};
+      return {status: status.BAD_REQUEST, message: localize.getString('fail.illegal.postalCode', 'pt')};
     }
 
     // Checks if there is one mandatory coverage present
     if (!quotation.hasMandatoryCoverage(this.coberturas)) {
-      return {status: status.BAD_REQUEST, message: 'Cobertura obrigatória inexistente!'};
+      return {status: status.BAD_REQUEST, message: localize.getString('fail.missing.mandatoryCoverage', 'pt')};
     }
 
     // Max number of coverages excedded
     if (this.coberturas.length > 4) {
-      return {status: status.BAD_REQUEST, message: 'Número máximo de coberturas excedido!'};
+      return {status: status.BAD_REQUEST, message: localize.getString('fail.tooManyCoverages', 'pt')};
     }
 
     return {status: status.OK};
