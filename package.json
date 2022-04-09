@@ -28,7 +28,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "localized-strings": "^0.2.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "morgan": "~1.9.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
